@@ -52,7 +52,8 @@ def open_file_dialog():
     
     perform_execution = False
     for obj in space_objects:
-        space.delete(obj.image)
+        if hasattr(obj, 'image') and obj.image:
+            space.delete(obj.image)
     
     in_filename = askopenfilename(filetypes=(("Text file", ".txt"),))
     if not in_filename:
@@ -95,40 +96,40 @@ def main():
     
     root = tkinter.Tk()
     root.title("Solar System - Ticket #3")
-    root.geometry("1000x850")  # <-- ЯВНЫЙ РАЗМЕР ОКНА!
+    root.geometry("1000x900")
     
-    space = tkinter.Canvas(root, width=window_width, height=window_height, bg="black")
+    space = tkinter.Canvas(root, width=1000, height=800, bg="black")
     space.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=True)
     
-    frame = tkinter.Frame(root, height=50)
+    frame = tkinter.Frame(root, height=60)
     frame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
     frame.pack_propagate(False)
     
     start_button = tkinter.Button(frame, text="Start", command=start_execution, width=8)
-    start_button.pack(side=tkinter.LEFT, padx=5, pady=5)
+    start_button.pack(side=tkinter.LEFT, padx=5, pady=10)
     
     time_step = tkinter.DoubleVar()
     time_step.set(1)
     time_step_entry = tkinter.Entry(frame, textvariable=time_step, width=5)
-    time_step_entry.pack(side=tkinter.LEFT, padx=5, pady=5)
+    time_step_entry.pack(side=tkinter.LEFT, padx=5, pady=10)
     
     time_speed = tkinter.DoubleVar()
     scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL, length=100)
-    scale.pack(side=tkinter.LEFT, padx=5, pady=5)
+    scale.pack(side=tkinter.LEFT, padx=5, pady=10)
     
     load_file_button = tkinter.Button(frame, text="Open file...", command=open_file_dialog, width=12)
-    load_file_button.pack(side=tkinter.LEFT, padx=5, pady=5)
+    load_file_button.pack(side=tkinter.LEFT, padx=5, pady=10)
     
     save_file_button = tkinter.Button(frame, text="Save to file...", command=save_file_dialog, width=12)
-    save_file_button.pack(side=tkinter.LEFT, padx=5, pady=5)
+    save_file_button.pack(side=tkinter.LEFT, padx=5, pady=10)
     
     toggle_orbits_button = tkinter.Button(frame, text="Toggle Orbits", command=toggle_orbits, width=12)
-    toggle_orbits_button.pack(side=tkinter.LEFT, padx=5, pady=5)
+    toggle_orbits_button.pack(side=tkinter.LEFT, padx=5, pady=10)
     
     displayed_time = tkinter.StringVar()
     displayed_time.set("0.0 seconds gone")
     time_label = tkinter.Label(frame, textvariable=displayed_time, width=20)
-    time_label.pack(side=tkinter.RIGHT, padx=10, pady=5)
+    time_label.pack(side=tkinter.RIGHT, padx=10, pady=10)
     
     root.mainloop()
     print('Modelling finished!')
